@@ -1,5 +1,4 @@
 const index = async (req, res) => {
-  console.log(pessoas);
   res.render('login/index');
 }
 

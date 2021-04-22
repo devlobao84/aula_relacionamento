@@ -18,15 +18,16 @@ router.delete('/pessoa/deletar/:id', controller.deletar)
 
 
 // ROTA MATRICULAS
-router.get('/matricula/exibirtodos', controller.procuraTodos)
+router.get('/matricula/exibirtodas', controller.procuraTodas)
 
-router.get('/matricula/exibirum/:id', controller.procuraUm)
+router.get('/matricula/exibiruma/:id', controller.procuraUma)
 
-router.post('/matricula/cadastrar', controller.cadastrar)
+// Antes de habilitar essa rota, temos que responder à dúvida comentada logo acima do esboço da função
+// router.post('/matricula/cadastrar', controller.cadastrarMatricula)
 
-router.put('/matricula/atualizar', controller.atualizar)
+router.put('/matricula/atualizar/', controller.atualizarMatricula)
 
-router.delete('/matricula/deletar/:id', controller.deletar)
+router.delete('/matricula/deletar', controller.deletarMatricula)
 
 module.exports = router;
 
