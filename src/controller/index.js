@@ -59,13 +59,6 @@ res.json(pessoaDeletada)
 
 
 
-
-
-
-
-
-
-
 module.exports = {
     procuraTodos,
     procuraUm,
