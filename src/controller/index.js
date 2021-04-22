@@ -106,7 +106,7 @@ const atualizarMatricula = async (req, res) => {
   res.json(matriculaAtualizada)
 }
 
-// DELETAR USUÁRIO DADO UM ID
+// DELETAR USUÁRIO DADO UM ID //
 const deletarMatricula = async (req, res) => {
   let { id } = req.query;
   let matriculaDeletada = await Matriculas.destroy({
