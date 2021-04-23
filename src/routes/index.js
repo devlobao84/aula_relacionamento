@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controller/index')
 // GET /
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index');
 });
 
@@ -25,7 +25,7 @@ router.get('/matricula/exibiruma/:id', controller.procuraUma)
 // Antes de habilitar essa rota, temos que responder à dúvida comentada logo acima do esboço da função
 // router.post('/matricula/cadastrar', controller.cadastrarMatricula)
 
-router.put('/matricula/atualizar/', controller.atualizarMatricula)
+router.put('/matricula/atualizar', controller.atualizarMatricula)
 
 router.delete('/matricula/deletar', controller.deletarMatricula)
 

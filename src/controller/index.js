@@ -5,29 +5,29 @@ const procuraTodos = async (req, res) => {
   const pessoas = await Pessoas.findAll()
   console.log(pessoas);
   res.send(pessoas);
-  
+
 }
 
 const procuraUm = async (req, res) => {
-const {id} = req.params
-//console.log(pessoas);
-const pessoas = await Pessoas.findByPk(id)
-  
+  const { id } = req.params
+  //console.log(pessoas);
+  const pessoas = await Pessoas.findByPk(id)
+
   res.send(pessoas);
-  
+
 }
 
 
 // CADASTRAR UM USUÁRIO
 const cadastrar = async (req, res) => {
   let { nome, ativo, email, role } = req.query
-  let pessoaCadastrada = await Pessoas.create ({
+  let pessoaCadastrada = await Pessoas.create({
     nome: nome,
     ativo: ativo,
     email: email,
     role: role
-    })
-    res.json(pessoaCadastrada);
+  })
+  res.json(pessoaCadastrada);
 }
 
 //Pensar em uma maneira de atualizar qualquer campo em uma query só
@@ -39,7 +39,7 @@ const atualizar = async (req, res) => {
       nome: nome
     },
     {
-      where : {email: email}
+      where: { email: email }
     }
   );
   res.json(pessoaAtualizada)
@@ -51,10 +51,10 @@ const deletar = async (req, res) => {
   let pessoaDeletada = await Pessoas.destroy({
     where: {
       id: id
-  }
-})
+    }
+  })
 
-res.json(pessoaDeletada)
+  res.json(pessoaDeletada)
 }
 
 
@@ -64,17 +64,17 @@ res.json(pessoaDeletada)
 const procuraTodas = async (req, res) => {
   const matriculas = await Matriculas.findAll()
   res.send(matriculas);
-  
+
 }
 
 
 // PROCURAR UMA MATRÍCULA POR ID
 const procuraUma = async (req, res) => {
-const { id } = req.params
-const matriculas = await Matriculas.findByPk(id)
-  
+  const { id } = req.params
+  const matriculas = await Matriculas.findByPk(id)
+
   res.send(matriculas);
-  
+
 }
 
 
@@ -95,15 +95,26 @@ const matriculas = await Matriculas.findByPk(id)
 // ATUALIZAR UMA MATRÍCULA
 const atualizarMatricula = async (req, res) => {
   let { id, status } = req.query
-  let matriculaAtualizada = await Matriculas.update(
-    {
-      status: status
-    },
-    {
-      where : {id: id}
-    }
-  );
-  res.json(matriculaAtualizada)
+  let matriculaExiste = await Pessoas.findByPk(id);
+  try {
+    if (!matriculaExiste) throw new Error(`O aluno de ID ${id} não existe`)
+    // pessoasModel.buscaPessoa
+    let matriculaAtualizada = await Matriculas.update(
+      {
+        status: status
+      },
+      {
+        where: { estudante_id: id }
+      }
+    );
+    res.json(matriculaAtualizada)
+
+  } catch (error) {
+
+    res.json({ erro: error.message })
+    console.log(error)
+  }
+
 }
 
 // DELETAR USUÁRIO DADO UM ID //
@@ -112,24 +123,24 @@ const deletarMatricula = async (req, res) => {
   let matriculaDeletada = await Matriculas.destroy({
     where: {
       id: id
-  }
-})
+    }
+  })
 
-res.json(matriculaDeletada)
+  res.json(matriculaDeletada)
 }
 
 
 module.exports = {
-    procuraTodos,
-    procuraUm,
-    cadastrar,
-    atualizar,
-    deletar,
+  procuraTodos,
+  procuraUm,
+  cadastrar,
+  atualizar,
+  deletar,
 
-    procuraTodas,
-    procuraUma,
-    atualizarMatricula,
-    deletarMatricula
+  procuraTodas,
+  procuraUma,
+  atualizarMatricula,
+  deletarMatricula
 
 }
 
